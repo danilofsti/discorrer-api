@@ -33,7 +33,48 @@ export class InsertRunController implements Controller {
     }
     let runInfo = httpRequest.body
     runInfo = await this.runRepository.createRun(runInfo)
-    console.log(runInfo)
     return ok(runInfo)
+  }
+}
+
+export class GetRunsController implements Controller {
+
+  private readonly runRepository: RunRepository;
+
+  constructor (runRepository: RunRepository) {
+    this.runRepository = runRepository
+  }
+
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse>  {
+    const runs = await this.runRepository.getAllRuns()
+    return ok(runs)
+  }
+}
+
+export class GetRunController implements Controller {
+
+  private readonly runRepository: RunRepository;
+
+  constructor (runRepository: RunRepository) {
+    this.runRepository = runRepository
+  }
+
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse>  {
+    const runs = await this.runRepository.getRun(httpRequest.body.id)
+    return ok(runs)
+  }
+}
+
+export class UpdateRunController implements Controller {
+
+  private readonly runRepository: RunRepository;
+
+  constructor (runRepository: RunRepository) {
+    this.runRepository = runRepository
+  }
+
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse>  {
+    const runs = await this.runRepository.updateRun(httpRequest.body)
+    return ok(runs)
   }
 }

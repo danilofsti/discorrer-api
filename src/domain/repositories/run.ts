@@ -20,16 +20,29 @@ export class RunRepositoryAdapter implements RunRepository {
         const mongoose = await connect();
         const Run = mongoose.model("Run", RunSchema);
         await Run.findByIdAndUpdate(runInfo._id, runInfo);
+        const query = Run.findById(runInfo._id);
+        return await query.exec();
     } catch (err) {
         throw err;
     }
   }
 
-  async getAllAthleteRuns(athlete: any) {
+  async getAllRuns() {
     try {
         const mongoose = await connect();
         const Run = mongoose.model("Run", RunSchema);
-        const query = Run.find({ athlete });
+        const query = Run.find();
+        return await query.exec();
+    } catch (err) {
+        throw err;
+    }
+  }
+
+  async getRun(id: any) {
+    try {
+        const mongoose = await connect();
+        const Run = mongoose.model("Run", RunSchema);
+        const query = Run.findById(id);
         return await query.exec();
     } catch (err) {
         throw err;
