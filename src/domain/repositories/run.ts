@@ -31,7 +31,7 @@ export class RunRepositoryAdapter implements RunRepository {
     try {
         const mongoose = await connect();
         const Run = mongoose.model("Run", RunSchema);
-        const query = Run.find();
+        const query = Run.find().sort({start_date_local: 'desc'});
         return await query.exec();
     } catch (err) {
         throw err;

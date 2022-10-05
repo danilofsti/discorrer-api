@@ -15,12 +15,12 @@ export class InsertRunController implements Controller {
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse>  {
+    
     const requiredFields = [
       'name' ,
       'distance',
       'elapsed_time' ,
       'start_date_local' ,
-      'is_imported',
       'mood',
       'type',
       'where',
@@ -33,6 +33,7 @@ export class InsertRunController implements Controller {
     }
     let runInfo = httpRequest.body
     runInfo = await this.runRepository.createRun(runInfo)
+    console.log(runInfo)
     return ok(runInfo)
   }
 }
