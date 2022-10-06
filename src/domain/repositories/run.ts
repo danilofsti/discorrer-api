@@ -38,6 +38,17 @@ export class RunRepositoryAdapter implements RunRepository {
     }
   }
 
+  async getAllRunsByJornal(jornal: string) {
+    try {
+        const mongoose = await connect();
+        const Run = mongoose.model("Run", RunSchema);
+        const query = Run.find({'jornal': { $regex : new RegExp(jornal, "i") }}).sort({start_date_local: 'desc'});
+        return await query.exec();
+    } catch (err) {
+        throw err;
+    }
+  }
+
   async getRun(id: any) {
     try {
         const mongoose = await connect();

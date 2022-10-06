@@ -3,4 +3,5 @@ export interface RunRepository {
   updateRun: (runInfo: any) => Promise<any>
   getAllRuns: () => Promise<any>
   getRun: (id: any) => Promise<any>
+  getAllRunsByJornal: (jornal: string) => Promise<any>
 }

@@ -33,7 +33,6 @@ export class InsertRunController implements Controller {
     }
     let runInfo = httpRequest.body
     runInfo = await this.runRepository.createRun(runInfo)
-    console.log(runInfo)
     return ok(runInfo)
   }
 }
@@ -47,6 +46,10 @@ export class GetRunsController implements Controller {
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse>  {
+    if(httpRequest.body.jornal){
+      const runs = await this.runRepository.getAllRunsByJornal(httpRequest.body.jornal)
+      return ok(runs)
+    }
     const runs = await this.runRepository.getAllRuns()
     return ok(runs)
   }
